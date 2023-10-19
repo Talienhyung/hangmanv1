@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// The readfile function returns an array of strings containing all the words in a dictionary
 func readFile(fichier string) []string {
 	var dictio []string
 
@@ -30,6 +31,7 @@ func readFile(fichier string) []string {
 	return dictio
 }
 
+// The listDictio function returns all files in the Dictinonary directory
 func listDictio() []string {
 	var listDico []string
 	entries, err := os.ReadDir("Ressources/Dictionary/")
@@ -43,6 +45,7 @@ func listDictio() []string {
 	return listDico
 }
 
+// The ReadAllDico function returns an array of strings containing all the words in the various files in the dictionary folder.
 func ReadAllDico() []string {
 	listDico := listDictio()
 	var dico []string
