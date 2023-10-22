@@ -10,7 +10,7 @@ DESCRIPTION
         This command launches the hangman game! To view the rules, use --rules or -r
 
 OPERATORS
-        --startWith FILE or -s FILE
+        --startWith FILE or -sw FILE
                Restart the game where you ended it, the file given must be the save file (so don't forget it!)
 
         --classic or -c
@@ -45,4 +45,6 @@ EXIT
             game save failed
         exit 3
             indicated file does not exist
+        exit 4
+            two arguments not compatible
 
