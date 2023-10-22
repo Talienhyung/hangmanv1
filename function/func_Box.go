@@ -1,7 +1,6 @@
 package Hangman
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/nsf/termbox-go"
@@ -55,6 +54,7 @@ func drawText(text []rune, x, y int, color termbox.Attribute) {
 	}
 }
 
+// FONCTION DRAW EN PERIODE DE TEST, AJOUE LA PARTUE VERIFICATION DES LETTRES? EN COUR : AJOUE D'UNE FONCTION VERIFICATION DE MOT !
 func Draw() {
 	if err := termbox.Init(); err != nil {
 		panic(err)
@@ -65,14 +65,10 @@ func Draw() {
 
 	var HangMan HangManData
 
-	HangMan.Word="lol"
-
-
-
 	userInput := ""
-	wordToFind := "ecriture"
+	HangMan.ToFind := "ecriture"
 	HangMan.Word := []rune("________")
-	hang := 0
+	HangMan.Attempts := 0
 	var letter rune
 	var listWordUsed []string
 	var listUsed []rune
@@ -86,7 +82,7 @@ func Draw() {
 	for {
 		// Afficher l'entrée utilisateur avec le curseur clignotant
 		termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-		display(hang, 'A')
+		display(HangMan.Attempts, 'A')
 
 		drawText([]rune(userInput), 2, 10, termbox.ColorDefault)
 		drawText(HangMan.Word, 2, 5, termbox.ColorDefault)
@@ -104,10 +100,10 @@ func Draw() {
 			if ev.Key == termbox.KeyEsc {
 				return
 			} else if (ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter) && userInput != "" {
-				if moreThanOneLetter(userInput){
-					HangMan.Word, hang, listWordUsed = moreThanOneLetter(userInput, wordToFind, HangMan.Word, listWordUsed, hang)
+				if moreThanOneLetter(userInput) {
+					HangMan.Word, hang, listWordUsed = moreThanOneLetter(userInput, HangMan.ToFind, HangMan.Word, listWordUsed, HangMan.Attempts)
 				}
-				HangMan.Word, hang, listUsed = oneOrmoreLetter(userInput, wordToFind, HangMan.Word, listUsed, hang)
+				HangMan.Word, hang, listUsed = oneOrmoreLetter(userInput, HangMan.ToFind, HangMan.Word, listUsed, HangMan.Attempts)
 				userInput = ""
 			} else {
 				userInput += string(ev.Ch)
@@ -124,25 +120,8 @@ func moreThanOneLetter(userInput string) bool {
 	return false
 }
 
-func oneLetter(userInput, wordToFind string, HangMan.Word, listUsed []rune, hang int) ([]rune, int, []rune) {
+func oneLetter(userInput, ToFind string, Word, listUsed []rune, hang int) ([]rune, int, []rune) {
 	runes := []rune(userInput)
-	a, b := LetterInWord(runes[0], wordToFind, HangMan.Word, hang)
+	a, b := LetterInWord(runes[0], ToFind, Word, hang)
 	return a, b, UsedLetter(runes[0], listUsed)
 }
-
-func moreThanOneLetter(userInput, wordToFind string, HangMan.Word, listUsed []rune, hang int) ([]rune, int, []rune) {
-
-}
-
-func Gagner() {
-	fmt.Println("Je suis ton pere")
-}
-
-
-type HangManData struct {
-	Word             []rune // Word composed of '_', ex: H_ll_
-	ToFind           string // Final word chosen by the program at the beginning. It is the word to find
-	Attempts         int // Number of attempts left
-	HangmanPositions [10]string // It can be the array where the positions parsed in "hangman.txt" are stored
-}
-
