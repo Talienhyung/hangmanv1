@@ -46,7 +46,7 @@ func listDictio() []string {
 }
 
 // The ReadAllDico function returns an array of strings containing all the words in the various files in the dictionary folder.
-func ReadAllDico() []string {
+func readAllDico() []string {
 	listDico := listDictio()
 	var dico []string
 	for i := 0; i < len(listDico); i++ {
@@ -54,4 +54,15 @@ func ReadAllDico() []string {
 		dico = append(dico, newDico...)
 	}
 	return dico
+}
+
+func ReadTheDico(file string) []string {
+	listDico := listDictio()
+	for _, j := range listDico {
+		if file == j {
+			Dico := readFile("Ressources/Dictionary/" + file)
+			return Dico
+		}
+	}
+	return readAllDico()
 }

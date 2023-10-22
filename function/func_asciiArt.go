@@ -22,7 +22,7 @@ func DisplayAscii(x, y, version int, borderColor termbox.Attribute, theme string
 	}
 
 	for i := 0; i <= 8; i++ {
-		runes := []rune(ascii[version][i])
+		runes := []rune(ascii[version-32][i])
 		for index, j := range runes {
 			termbox.SetCell(x+index, y+i, j, borderColor, termbox.ColorDefault)
 		}
