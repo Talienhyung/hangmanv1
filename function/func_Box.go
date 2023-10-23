@@ -6,6 +6,24 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
+func (hang *HangManData) meca(input string) bool {
+	if len(input) > 1 {
+		if hang.IsThisTheWord(input) {
+			return true
+		} else if input == "STOP" {
+			hang.Save("save.txt")
+		} else {
+			hang.Attempts -= 2
+			hang.HangmanPositions += 2
+		}
+	} else {
+		oneRune := []rune(input)
+		hang.LetterInWord(oneRune[0])
+		hang.UsedLetter(oneRune[0])
+	}
+	return false
+}
+
 func drawBox(x, y, width, height int, borderColor termbox.Attribute, title string) {
 	// Dessine le cadre de la boîte
 	for i := x; i < x+width; i++ {
@@ -29,14 +47,15 @@ func drawBox(x, y, width, height int, borderColor termbox.Attribute, title strin
 	}
 }
 
-func display(hang int, letter rune) {
+func (hang *HangManData) display(letter rune) {
 	// Boîte principale
-	DisplayAscii(55+16, 15, int(letter), termbox.ColorLightRed, "standard")
 	drawBox(0, 0, 100, 24, termbox.ColorWhite, "main")
 
 	// Première boîte à l'intérieur de la boîte principale
 	drawBox(55, 0, 45, 15, termbox.ColorRed, "Hangman")
-	DisplayHangman(55+18, 4, hang, termbox.ColorBlue)
+	if hang.HangmanPositions >= 0 && hang.HangmanPositions <= 9 {
+		hang.DisplayHangman(55+18, 4, termbox.ColorBlue)
+	}
 
 	// Deuxième boîte à l'intérieur de la boîte principale
 	drawBox(0, 0, 50, 8, termbox.ColorBlue, "Word...")
@@ -54,24 +73,35 @@ func drawText(text []rune, x, y int, color termbox.Attribute) {
 	}
 }
 
-// FONCTION DRAW EN PERIODE DE TEST, AJOUE LA PARTUE VERIFICATION DES LETTRES? EN COUR : AJOUE D'UNE FONCTION VERIFICATION DE MOT !
-func Draw() {
+func (data *Game) asciiBox(word string) {
+	switch word {
+	case "win":
+		data.DisplayAscii(55+18, 15, 'I', termbox.ColorGreen)
+		data.DisplayAscii(55, 15, 'W', termbox.ColorGreen)
+		data.DisplayAscii(55+16+14, 15, 'N', termbox.ColorGreen)
+	case "lose":
+		data.DisplayAscii(55, 15, 'L', termbox.ColorGreen)
+		data.DisplayAscii(55+16, 15, 'O', termbox.ColorGreen)
+		data.DisplayAscii(55+16+12, 15, 'S', termbox.ColorGreen)
+		data.DisplayAscii(55+16+24, 15, 'E', termbox.ColorGreen)
+	}
+	// data.DisplayAscii(55+16, 15, int(letter), termbox.ColorLightRed)
+}
+
+// FONCTION DRAW EN PERIODE DE TEST, AJOUE LA PARTIE VERIFICATION DES LETTRES? EN COUR : AJOUE D'UNE FONCTION VERIFICATION DE MOT !
+func Draw(data HangManData, game Game) {
+	var HangMan HangManData = data
+
 	if err := termbox.Init(); err != nil {
 		panic(err)
 	}
 	defer termbox.Close()
 
 	// Entrée utilisateur et curseur
-
-	var HangMan HangManData
-
+	letter := '/'
+	word := ""
+	game.asciiBox(word)
 	userInput := ""
-	HangMan.ToFind := "ecriture"
-	HangMan.Word := []rune("________")
-	HangMan.Attempts := 0
-	var letter rune
-	var listWordUsed []string
-	var listUsed []rune
 	cursorVisible := true
 	termbox.Flush()
 
@@ -82,11 +112,10 @@ func Draw() {
 	for {
 		// Afficher l'entrée utilisateur avec le curseur clignotant
 		termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-		display(HangMan.Attempts, 'A')
-
+		HangMan.display(letter)
 		drawText([]rune(userInput), 2, 10, termbox.ColorDefault)
 		drawText(HangMan.Word, 2, 5, termbox.ColorDefault)
-		drawText(listUsed, 2, 17, termbox.ColorDefault)
+		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault)
 
 		// Afficher ou masquer le curseur clignotant
 		if cursorVisible {
@@ -100,28 +129,18 @@ func Draw() {
 			if ev.Key == termbox.KeyEsc {
 				return
 			} else if (ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter) && userInput != "" {
-				if moreThanOneLetter(userInput) {
-					HangMan.Word, hang, listWordUsed = moreThanOneLetter(userInput, HangMan.ToFind, HangMan.Word, listWordUsed, HangMan.Attempts)
+				runes := []rune(userInput)
+				letter = runes[0]
+				if HangMan.meca(userInput) {
+					word = "win"
 				}
-				HangMan.Word, hang, listUsed = oneOrmoreLetter(userInput, HangMan.ToFind, HangMan.Word, listUsed, HangMan.Attempts)
 				userInput = ""
 			} else {
 				userInput += string(ev.Ch)
 			}
 		}
+		if HangMan.endGame() {
+			word = "win"
+		}
 	}
-}
-
-func moreThanOneLetter(userInput string) bool {
-	runes := []rune(userInput)
-	if len(runes) > 1 {
-		return true
-	}
-	return false
-}
-
-func oneLetter(userInput, ToFind string, Word, listUsed []rune, hang int) ([]rune, int, []rune) {
-	runes := []rune(userInput)
-	a, b := LetterInWord(runes[0], ToFind, Word, hang)
-	return a, b, UsedLetter(runes[0], listUsed)
 }
