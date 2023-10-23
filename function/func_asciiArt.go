@@ -8,9 +8,9 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-func DisplayAscii(x, y, version int, borderColor termbox.Attribute, theme string) {
+func (data *Game) DisplayAscii(x, y, version int, borderColor termbox.Attribute) {
 	var ascii [95][9]string
-	switch theme {
+	switch data.letterFile {
 	case "shadow":
 		ascii = readAscii("Ressources/Ascii_Letter/shadow.txt")
 	case "standard":
@@ -18,7 +18,7 @@ func DisplayAscii(x, y, version int, borderColor termbox.Attribute, theme string
 	case "thinkertoy":
 		ascii = readAscii("Ressources/Ascii_Letter/thinkertoy.txt")
 	default:
-		os.Exit(1)
+		os.Exit(3)
 	}
 
 	for i := 0; i <= 8; i++ {

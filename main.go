@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	Hangman.Draw()
+	Hangman.ExploitingArgument(Hangman.Arg())
 }

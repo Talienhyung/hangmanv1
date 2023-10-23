@@ -8,10 +8,10 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-func DisplayHangman(x, y, version int, borderColor termbox.Attribute) {
+func (hang *HangManData) DisplayHangman(x, y int, borderColor termbox.Attribute) {
 	hangMan := readHang("Ressources/HangMan_Position/hangman.txt")
 	for i := 0; i <= 7; i++ {
-		runes := []rune(hangMan[version][i])
+		runes := []rune(hangMan[hang.HangmanPositions][i])
 		for index, j := range runes {
 			termbox.SetCell(x+index, y+i, j, borderColor, termbox.ColorDefault)
 		}

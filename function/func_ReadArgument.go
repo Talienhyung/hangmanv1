@@ -76,6 +76,9 @@ func Arg() Game {
 			Help()
 			os.Exit(0)
 		default:
+			if needFile && index == 0 {
+				game.dico = arguments[0]
+			}
 			if needFile {
 				needFile = false
 			} else {
