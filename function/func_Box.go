@@ -1,8 +1,6 @@
 package Hangman
 
 import (
-	"time"
-
 	"github.com/nsf/termbox-go"
 )
 
@@ -47,12 +45,12 @@ func drawBox(x, y, width, height int, borderColor termbox.Attribute, title strin
 	}
 }
 
-func (hang *HangManData) display(letter rune) {
+func (hang *HangManData) display() {
 	// Boîte principale
 	drawBox(0, 0, 100, 24, termbox.ColorWhite, "main")
 
 	// Première boîte à l'intérieur de la boîte principale
-	drawBox(55, 0, 45, 15, termbox.ColorRed, "Hangman")
+	drawBox(55, 0, 45, 15, termbox.ColorLightYellow, "Hangman")
 	if hang.HangmanPositions >= 0 && hang.HangmanPositions <= 9 {
 		hang.DisplayHangman(55+18, 4, termbox.ColorBlue)
 	}
@@ -67,9 +65,32 @@ func (hang *HangManData) display(letter rune) {
 	drawBox(0, 16, 50, 8, termbox.ColorLightMagenta, "Used letter")
 }
 
-func drawText(text []rune, x, y int, color termbox.Attribute) {
+func drawText(text []rune, x, y int, color termbox.Attribute, cursor bool) {
+	ligne := 0
+	space := 0
 	for i, ch := range text {
-		termbox.SetCell(x+i, y, ch, termbox.ColorDefault, termbox.ColorDefault)
+		switch {
+		case i > 45 && i <= 91:
+			space = 46
+			ligne = 1
+		case i > 91 && i <= 137:
+			space = 92
+			ligne = 2
+		case i > 137 && i <= 183:
+			space = 138
+			ligne = 3
+		case i > 183 && i <= 229:
+			space = 184
+			ligne = 4
+		default:
+			ligne = 0
+			space = 0
+		}
+		termbox.SetCell(x+i-space, y+ligne, ch, termbox.ColorDefault, termbox.ColorDefault)
+
+	}
+	if cursor {
+		termbox.SetCell(2+len(text)-space, 10+ligne, '_', termbox.ColorDefault, termbox.ColorDefault)
 	}
 }
 
@@ -80,12 +101,14 @@ func (data *Game) asciiBox(word string) {
 		data.DisplayAscii(55, 15, 'W', termbox.ColorGreen)
 		data.DisplayAscii(55+16+14, 15, 'N', termbox.ColorGreen)
 	case "lose":
-		data.DisplayAscii(55, 15, 'L', termbox.ColorGreen)
-		data.DisplayAscii(55+16, 15, 'O', termbox.ColorGreen)
-		data.DisplayAscii(55+16+12, 15, 'S', termbox.ColorGreen)
-		data.DisplayAscii(55+16+24, 15, 'E', termbox.ColorGreen)
+		data.DisplayAscii(56, 15, 'L', termbox.ColorRed)
+		data.DisplayAscii(55+11, 15, 'O', termbox.ColorRed)
+		data.DisplayAscii(55+16+5, 15, 'S', termbox.ColorRed)
+		data.DisplayAscii(55+16+14, 15, 'E', termbox.ColorRed)
+	default:
+		runes := []rune(word)
+		data.DisplayAscii(55+16, 15, int(runes[0]), termbox.ColorLightRed)
 	}
-	// data.DisplayAscii(55+16, 15, int(letter), termbox.ColorLightRed)
 }
 
 // FONCTION DRAW EN PERIODE DE TEST, AJOUE LA PARTIE VERIFICATION DES LETTRES? EN COUR : AJOUE D'UNE FONCTION VERIFICATION DE MOT !
@@ -98,30 +121,18 @@ func Draw(data HangManData, game Game) {
 	defer termbox.Close()
 
 	// Entrée utilisateur et curseur
-	letter := '/'
-	word := ""
-	game.asciiBox(word)
+	word := "/"
 	userInput := ""
-	cursorVisible := true
-	termbox.Flush()
-
-	// Configuration du minuteur pour le curseur clignotant
-	cursorTimer := time.NewTicker(500 * time.Millisecond)
-	defer cursorTimer.Stop()
 
 	for {
 		// Afficher l'entrée utilisateur avec le curseur clignotant
 		termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-		HangMan.display(letter)
-		drawText([]rune(userInput), 2, 10, termbox.ColorDefault)
-		drawText(HangMan.Word, 2, 5, termbox.ColorDefault)
-		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault)
+		game.asciiBox(word)
+		HangMan.display()
 
-		// Afficher ou masquer le curseur clignotant
-		if cursorVisible {
-			termbox.SetCell(2+len(userInput), 10, '_', termbox.ColorDefault, termbox.ColorDefault)
-		}
-
+		drawText([]rune(userInput), 2, 10, termbox.ColorDefault, true)
+		drawText(HangMan.Word, 2, 5, termbox.ColorDefault, false)
+		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault, false)
 		termbox.Flush()
 
 		ev := termbox.PollEvent()
@@ -129,18 +140,26 @@ func Draw(data HangManData, game Game) {
 			if ev.Key == termbox.KeyEsc {
 				return
 			} else if (ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter) && userInput != "" {
-				runes := []rune(userInput)
-				letter = runes[0]
 				if HangMan.meca(userInput) {
 					word = "win"
+				} else {
+					word = userInput
 				}
 				userInput = ""
+			} else if ev.Key == termbox.KeyDelete {
+				userInput = ""
+			} else if ev.Key == termbox.KeyBackspace || ev.Key == termbox.KeyBackspace2 {
+				userInput = userInput[:len(userInput)-1]
 			} else {
 				userInput += string(ev.Ch)
 			}
 		}
 		if HangMan.endGame() {
-			word = "win"
+			if HangMan.Attempts <= 0 {
+				word = "lose"
+			} else {
+				word = "win"
+			}
 		}
 	}
 }
