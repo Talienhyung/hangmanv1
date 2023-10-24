@@ -1,12 +1,6 @@
-package Hangman
+package hangman
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-
-	"github.com/nsf/termbox-go"
-)
+import "github.com/nsf/termbox-go"
 
 func (data *Game) DisplayAscii(x, y, version int, borderColor termbox.Attribute) {
 	var ascii [95][9]string
@@ -29,30 +23,19 @@ func (data *Game) DisplayAscii(x, y, version int, borderColor termbox.Attribute)
 	}
 }
 
-func readAscii(fichier string) [95][9]string {
-	var ascii [95][9]string
-
-	readFile, err := os.Open(fichier)
-	if err != nil {
-		fmt.Print(err)
+func (data *Game) asciiBox(word string) {
+	switch word {
+	case "win":
+		data.DisplayAscii(55+18, 15, 'I', termbox.ColorGreen)
+		data.DisplayAscii(55, 15, 'W', termbox.ColorGreen)
+		data.DisplayAscii(55+16+14, 15, 'N', termbox.ColorGreen)
+	case "lose":
+		data.DisplayAscii(56, 15, 'L', termbox.ColorRed)
+		data.DisplayAscii(55+11, 15, 'O', termbox.ColorRed)
+		data.DisplayAscii(55+16+5, 15, 'S', termbox.ColorRed)
+		data.DisplayAscii(55+16+14, 15, 'E', termbox.ColorRed)
+	default:
+		runes := []rune(word)
+		data.DisplayAscii(55+16, 15, int(runes[0]), termbox.ColorLightRed)
 	}
-
-	fileScanner := bufio.NewScanner(readFile) // Creates a scanner to read the file.
-
-	fileScanner.Split(bufio.ScanLines) // Divides the file into lines.
-
-	i, j := 0, 0
-	// Browse each line of the file.
-	for fileScanner.Scan() {
-		ascii[i][j] = fileScanner.Text()
-		j++
-		if j == 9 {
-			i++
-			j = 0
-		}
-	}
-
-	readFile.Close()
-
-	return ascii
 }

@@ -1,9 +1,9 @@
 package main
 
 import (
-	Hangman "Hangman/function"
+	hangman "hangman/function_structure"
 )
 
 func main() {
-	Hangman.ExploitingArgument(Hangman.Arg())
+	hangman.ExploitingArgument(hangman.Arg())
 }
