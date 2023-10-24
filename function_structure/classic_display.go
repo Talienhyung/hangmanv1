@@ -2,6 +2,7 @@ package hangman
 
 import "fmt"
 
+// Displays the hangman in the terminal
 func (hang HangManData) displayHangmanClassic() {
 	hangMan := readHang("Ressources/HangMan_Position/hangman.txt")
 	fmt.Println("")
@@ -10,6 +11,7 @@ func (hang HangManData) displayHangmanClassic() {
 	}
 }
 
+// displays the rune array given as a parameter in the terminal
 func printRune(tab []rune) {
 	for _, runes := range tab {
 		fmt.Print(string(runes))
@@ -17,6 +19,7 @@ func printRune(tab []rune) {
 	fmt.Print("\n")
 }
 
+// return user input
 func input(s string, inputs string) string {
 	fmt.Println(s)
 	fmt.Scanln(&inputs)
