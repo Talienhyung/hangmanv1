@@ -3,9 +3,8 @@ package hangman
 import "fmt"
 
 // This is the hangman classic game
-func ClassicGame(data HangManData) {
+func (game HangManData) ClassicGame() {
 	var inputs string
-	var game HangManData = data
 	gameOver := false
 
 	for !gameOver { // Game loop
