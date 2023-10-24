@@ -18,7 +18,7 @@ func (data *Game) DisplayAscii(x, y, version int, borderColor termbox.Attribute)
 	case "thinkertoy":
 		ascii = readAscii("Ressources/Ascii_Letter/thinkertoy.txt")
 	default:
-		os.Exit(3)
+		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
 	}
 
 	for i := 0; i <= 8; i++ {
