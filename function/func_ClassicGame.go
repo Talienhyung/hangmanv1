@@ -27,7 +27,7 @@ func ClassicGame(data HangManData) {
 			gameOver = true
 		}
 	}
-	if game.Attempts != 0 {
+	if game.Attempts > 0 {
 		fmt.Println("Felicitation ! Vous avez gagné !")
 	} else {
 		fmt.Println("Le mot était " + game.ToFind + ". Vous ferez mieux la prochaine fois !!")
@@ -35,7 +35,7 @@ func ClassicGame(data HangManData) {
 }
 
 func (game *HangManData) endGame() bool {
-	if game.Attempts == 0 {
+	if game.Attempts <= 0 {
 		return true
 	}
 	for _, runes := range game.Word {
