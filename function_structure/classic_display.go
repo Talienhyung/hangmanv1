@@ -13,10 +13,7 @@ func (hang HangManData) displayHangmanClassic() {
 
 // displays the rune array given as a parameter in the terminal
 func printRune(tab []rune) {
-	for _, runes := range tab {
-		fmt.Print(string(runes))
-	}
-	fmt.Print("\n")
+	fmt.Print(string(tab))
 }
 
 // return user input
