@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// This function reads the given ascii file and returns a [95][9]string containing the ascii art characters.
 func readAscii(fichier string) [95][9]string {
 	var ascii [95][9]string
 
@@ -35,6 +36,7 @@ func readAscii(fichier string) [95][9]string {
 	return ascii
 }
 
+// This function reads the given hangman file and returns a [10][8]string containing the hangman position.
 func readHang(fichier string) [10][8]string {
 	var hangman [10][8]string
 
@@ -64,6 +66,8 @@ func readHang(fichier string) [10][8]string {
 	return hangman
 }
 
+//########### Dictionary function ##################
+
 // The readfile function returns an array of strings containing all the words in a dictionary
 func readFile(fichier string) []string {
 	var dictio []string
@@ -89,7 +93,6 @@ func readFile(fichier string) []string {
 }
 
 // The listDictio function returns all files in the Dictinonary directory
-
 func listDictio() []string {
 	var listDico []string
 	entries, err := os.ReadDir("Ressources/Dictionary/")
@@ -114,6 +117,7 @@ func readAllDico() []string {
 	return dico
 }
 
+// This function returns an array of words, depending on the file entered as a parameter only if the file exists, otherwise it uses the other files.
 func ReadTheDico(file string) []string {
 	listDico := listDictio()
 	for _, j := range listDico {
