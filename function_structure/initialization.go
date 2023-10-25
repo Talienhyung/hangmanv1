@@ -12,7 +12,7 @@ func (hangman *HangManData) setData() {
 }
 
 func (hang *HangManData) SetWord(dico []string) {
-	randomIndex := random(len(dico) - 1)
+	randomIndex := rand.Intn(len(dico) - 1)
 	hang.ToFind = dico[randomIndex]
 	nbVisibleLetter := len(hang.ToFind)/2 - 1
 	for range hang.ToFind {
@@ -22,7 +22,7 @@ func (hang *HangManData) SetWord(dico []string) {
 	var place []int
 
 	for nbVisibleLetter > 0 {
-		randomIndex = random(len(hang.ToFind))
+		randomIndex = rand.Intn(len(hang.ToFind))
 		for _, j := range place {
 			if j == randomIndex {
 				again = true
@@ -42,8 +42,4 @@ func (hang *HangManData) SetWord(dico []string) {
 		hang.UsedLetter(WordRune[index])
 	}
 
-}
-
-func random(x int) int {
-	return rand.Intn(x)
 }
