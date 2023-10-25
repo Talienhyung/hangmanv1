@@ -6,6 +6,7 @@ import (
 	"os/exec"
 )
 
+// Display a manual for the utilisation of argument
 func Help() {
 	filePath := "Ressources/doc.txt"
 
@@ -18,11 +19,12 @@ func Help() {
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("Erreur lors de l'exécution de %s : %v\n", pagerCommand, err)
+		fmt.Printf("Error when executing %s: %v\n", pagerCommand, err)
 		os.Exit(1)
 	}
 }
 
+// Display the rule of the game
 func Rules() {
 	filePath := "Ressources/rules.txt"
 
@@ -35,7 +37,7 @@ func Rules() {
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("Erreur lors de l'exécution de %s : %v\n", pagerCommand, err)
+		fmt.Printf("Error when executing %s: %v\n", pagerCommand, err)
 		os.Exit(1)
 	}
 }
