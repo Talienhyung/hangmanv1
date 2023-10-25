@@ -120,6 +120,10 @@ func readAllDico() []string {
 // This function returns an array of words, depending on the file entered as a parameter only if the file exists, otherwise it uses the other files.
 func ReadTheDico(file string) []string {
 	listDico := listDictio()
+	if listDico == nil {
+		fmt.Println("No file in Dictionary")
+		os.Exit(3)
+	}
 	for _, j := range listDico {
 		if file == j {
 			Dico := readFile("Ressources/Dictionary/" + file)
