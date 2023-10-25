@@ -10,6 +10,7 @@ func (game HangManData) ClassicGame() {
 	for !gameOver { // Game loop
 		// Display word and attempts
 		printRune(game.Word)
+		fmt.Println("")
 		fmt.Printf("Attention plus que %d mauvaise(s) réponse(s) acceptée(s) !\n", game.Attempts)
 		letter := input("Entrez une lettre ou un mot :", inputs)
 
