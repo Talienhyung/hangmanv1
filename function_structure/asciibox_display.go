@@ -12,6 +12,8 @@ func (data *Game) displayAscii(x, y, version int, borderColor termbox.Attribute)
 		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
 	case "thinkertoy":
 		ascii = readAscii("Ressources/Ascii_Letter/thinkertoy.txt")
+	default:
+		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
 	}
 	for i := 0; i <= 8; i++ { //displays the correct character
 		runes := []rune(ascii[version-32][i])
