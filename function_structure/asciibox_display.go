@@ -6,11 +6,11 @@ import "github.com/nsf/termbox-go"
 func (data *Game) displayAscii(x, y, version int, borderColor termbox.Attribute) {
 	var ascii [95][9]string
 	switch data.letterFile { //choose the right font for ascii art
-	case "shadow":
+	case "shadow.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/shadow.txt")
-	case "standard":
+	case "standard.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
-	case "thinkertoy":
+	case "thinkertoy.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/thinkertoy.txt")
 	default:
 		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
