@@ -2,14 +2,16 @@ package hangman
 
 import (
 	"os"
+	"unicode/utf8"
 
 	"github.com/nsf/termbox-go"
 )
 
 // Main mecanic of the game which gathers several functions, return true if the game is finished, otherwise false.
 func (hang *HangManData) meca(input string) bool {
-	if len(input) > 1 { // If it's a word
+	if utf8.RuneCountInString(input) > 1 { // If it's a word
 		if hang.IsThisTheWord(input) {
+			hang.Word = []rune(hang.ToFind)
 			return true
 		} else if input == "STOP" {
 			hang.Save("Ressources/Save/save.txt")
