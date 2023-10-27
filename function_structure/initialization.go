@@ -2,7 +2,7 @@ package hangman
 
 import "math/rand"
 
-// Set HangMan's first Data
+// Set HangManData's first value
 func (hangman *HangManData) setData() {
 	hangman.Word = []rune{}
 	hangman.ToFind = ""
@@ -26,7 +26,8 @@ func (hang *HangManData) SetWord(dico []string) {
 
 	again := false
 	var place []int
-	for nbVisibleLetter > 0 { // Finds randomly different nbVisibleLetter in ToFind
+
+	for nbVisibleLetter > 0 { // Reveal random letters in the word to find
 		randomIndex = rand.Intn(len(hang.ToFind))
 		for _, j := range place {
 			if j == randomIndex {
