@@ -53,11 +53,11 @@ func (data *Game) displayAsciiText(words []rune) {
 
 	// Select the font for the ASCII art based on the 'letterFile' field.
 	switch data.letterFile {
-	case "shadow":
+	case "shadow.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/shadow.txt")
-	case "standard":
+	case "standard.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
-	case "thinkertoy":
+	case "thinkertoy.txt":
 		ascii = readAscii("Ressources/Ascii_Letter/thinkertoy.txt")
 	default:
 		ascii = readAscii("Ressources/Ascii_Letter/standard.txt")
