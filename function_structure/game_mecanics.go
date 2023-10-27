@@ -19,6 +19,7 @@ func (hang *HangManData) meca(input string) bool {
 			termbox.Close()
 			os.Exit(0)
 		} else {
+			hang.UsedWord(input)
 			hang.Attempts -= 2
 			hang.HangmanPositions += 2
 		}
