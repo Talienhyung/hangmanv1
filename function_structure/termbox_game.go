@@ -32,6 +32,9 @@ func Draw(data HangManData, game Game) {
 		drawText([]rune(userInput), 2, 10, termbox.ColorDefault, true)
 		drawText(HangMan.Word, 2, 4, termbox.ColorDefault, false)
 		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault, false)
+		for i := range HangMan.ListWord {
+			drawText([]rune(HangMan.ListWord[i]), 2, 18+i, termbox.ColorDefault, false)
+		}
 		termbox.Flush()
 
 		// Poll for user input events
