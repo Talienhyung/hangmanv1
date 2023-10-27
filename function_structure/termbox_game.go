@@ -28,7 +28,7 @@ func Draw(data HangManData, game Game) {
 		}
 		HangMan.display()
 
-		// Display user input
+		// Display text
 		drawText([]rune(userInput), 2, 10, termbox.ColorDefault, true)
 		drawText(HangMan.Word, 2, 4, termbox.ColorDefault, false)
 		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault, false)
@@ -40,7 +40,7 @@ func Draw(data HangManData, game Game) {
 			if ev.Key == termbox.KeyEsc {
 				return // Exit the game loop
 			} else if ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter {
-				if userInput != "" {
+				if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != "Empty or already proposed!" {
 					// Check if the user's input is a valid guess and update the word or game status
 					if !gameOver {
 						if HangMan.meca(userInput) {
@@ -55,14 +55,19 @@ func Draw(data HangManData, game Game) {
 							return
 						}
 					}
+				} else {
+					userInput = "Empty or already proposed!"
 				}
 			} else if ev.Key == termbox.KeyDelete {
 				userInput = "" // Clear user input
 			} else if ev.Key == termbox.KeyBackspace || ev.Key == termbox.KeyBackspace2 {
-				if userInput != "" {
+				if userInput != "" && userInput != "Empty or already proposed!" {
 					userInput = userInput[:len(userInput)-1] // Remove the last character from user input
 				}
 			} else {
+				if userInput == "Empty or already proposed!" {
+					userInput = ""
+				}
 				userInput += string(ev.Ch) // Add the character to user input
 			}
 		}
