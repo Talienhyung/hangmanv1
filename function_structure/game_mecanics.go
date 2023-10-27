@@ -1,6 +1,10 @@
 package hangman
 
-import "os"
+import (
+	"os"
+
+	"github.com/nsf/termbox-go"
+)
 
 // Main mecanic of the game which gathers several functions, return true if the game is finished, otherwise false.
 func (hang *HangManData) meca(input string) bool {
@@ -10,6 +14,7 @@ func (hang *HangManData) meca(input string) bool {
 		} else if input == "STOP" {
 			hang.Save("Ressources/Save/save.txt")
 		} else if input == "QUIT" {
+			termbox.Close()
 			os.Exit(0)
 		} else {
 			hang.Attempts -= 2
