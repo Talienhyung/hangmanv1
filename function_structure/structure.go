@@ -7,6 +7,7 @@ type HangManData struct {
 	HangmanPositions int      // Positions parsed in "hangman.txt" are stored
 	ListWord         []string // List of words suggested by the user
 	ListUsed         []rune   // List of letter sugested by the user
+	LastFail         bool     // Used to find out the status of the last input (used in the display).
 }
 
 type Game struct {
