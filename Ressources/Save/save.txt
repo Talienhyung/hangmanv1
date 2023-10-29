@@ -1,1 +1,1 @@
-{"Word":[109,95,117,115,95,105,95,117,101],"ToFind":"moustique","Attempts":8,"HangmanPositions":1,"ListWord":[],"ListUsed":[77,85,69,73,76,68,83]}
+{"Word":[95,97,114,95,95,101],"ToFind":"marche","Attempts":6,"HangmanPositions":3,"ListWord":[],"ListUsed":[69,82,65,73,79,85,83],"LastFail":true}
