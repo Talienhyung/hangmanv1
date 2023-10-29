@@ -12,10 +12,12 @@ func (game *HangManData) LetterInWord(oneRune rune) {
 		}
 	}
 	if len(place) != 0 { // If any letters have been found then replace the corresponding slots with the letters
+		game.LastFail = false
 		for _, index := range place {
 			game.Word[index] = oneRune
 		}
 	} else { // If the letter is not found, an attempt is lost
+		game.LastFail = true
 		game.Attempts--
 		game.HangmanPositions++
 	}
