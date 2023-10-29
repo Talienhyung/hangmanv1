@@ -46,6 +46,8 @@ func (hang *HangManData) SetWord(dico []string) {
 	for _, index := range place { // Add the different letter into Word
 		hang.Word[index] = WordRune[index]
 		hang.LetterInWord(WordRune[index])
-		hang.UsedLetter(WordRune[index])
+		if !hang.UsedVerif(string(WordRune[index])) {
+			hang.UsedLetter(WordRune[index])
+		}
 	}
 }
