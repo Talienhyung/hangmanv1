@@ -4,21 +4,35 @@ import (
 	"fmt"
 )
 
-// This is the hangman classic game
+// This is the hangman Ascii game
 func (game HangManData) AsciiGame(data Game) {
 	var inputs string
 	gameOver := false
+	fmt.Println("Good Luck, you have 10 attempts.")
+	data.displayAsciiText(game.Word)
 
 	for !gameOver { // Game loop
-		// Display word and attempts
-		data.displayAsciiText(game.Word)
-		fmt.Println("")
-		fmt.Printf("Attention plus que %d mauvaise(s) réponse(s) acceptée(s) !\n", game.Attempts)
-		letter := input("Entrez une lettre ou un mot :", inputs)
+		// Display input
+		letter := input("\nChoose : ", inputs)
 
 		// Verify input
-		if game.meca(letter) {
-			gameOver = true
+		if !game.UsedVerif(letter) && letter != " " {
+			if game.meca(letter) {
+				gameOver = true
+			}
+
+			if game.LastFail {
+				fmt.Printf("Not present in the word, %d attempts remaining\n", game.Attempts)
+			}
+
+			// Display AsciiText and HangMan
+			data.displayAsciiText(game.Word)
+			if game.HangmanPositions >= 0 {
+				game.displayHangmanClassic()
+			}
+
+		} else {
+			fmt.Println("Empty or already proposed!")
 		}
 
 		// Verify if it's the end of the game
@@ -29,8 +43,8 @@ func (game HangManData) AsciiGame(data Game) {
 
 	// Announcement of results
 	if game.Attempts > 0 {
-		fmt.Println("Felicitation ! Vous avez gagné !")
+		fmt.Println("Congrats !")
 	} else {
-		fmt.Println("Le mot était " + game.ToFind + ". Vous ferez mieux la prochaine fois !!")
+		fmt.Println("The word was " + game.ToFind + ". You'll do better next time!!!")
 	}
 }
