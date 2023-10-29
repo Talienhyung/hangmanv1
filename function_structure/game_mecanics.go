@@ -22,6 +22,11 @@ func (hang *HangManData) meca(input string) bool {
 			hang.UsedWord(input)
 			hang.Attempts -= 2
 			hang.HangmanPositions += 2
+			hang.LastFail = true
+			if hang.HangmanPositions > 9 {
+				hang.HangmanPositions = 9
+				hang.Attempts = 0
+			}
 		}
 	} else { // If it's a letter
 		oneRune := []rune(input)
