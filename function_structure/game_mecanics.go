@@ -1,6 +1,7 @@
 package hangman
 
 import (
+	"fmt"
 	"os"
 	"unicode/utf8"
 
@@ -15,6 +16,9 @@ func (hang *HangManData) meca(input string) bool {
 			return true
 		} else if input == "STOP" {
 			hang.Save("Ressources/Save/save.txt")
+			termbox.Close()
+			fmt.Println("Game save in save.txt")
+			os.Exit(0)
 		} else if input == "QUIT" {
 			termbox.Close()
 			os.Exit(0)
