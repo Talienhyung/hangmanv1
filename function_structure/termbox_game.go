@@ -23,7 +23,7 @@ func Draw(data HangManData, game Game) {
 		// Clear the screen and set up user interface
 		termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 		game.asciiBox(word)
-		if data.HangmanPositions > 9 {
+		if HangMan.HangmanPositions > 9 {
 			HangMan.HangmanPositions = 9
 		}
 		HangMan.display()
@@ -43,9 +43,9 @@ func Draw(data HangManData, game Game) {
 			if ev.Key == termbox.KeyEsc {
 				return // Exit the game loop
 			} else if ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter {
-				if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != "Empty or already proposed!" {
-					// Check if the user's input is a valid guess and update the word or game status
-					if !gameOver {
+				if !gameOver {
+					if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != "Empty or already proposed!" {
+						// Check if the user's input is a valid guess and update the word or game status
 						if HangMan.meca(userInput) {
 							word = "win"
 							gameOver = true
@@ -54,12 +54,12 @@ func Draw(data HangManData, game Game) {
 						}
 						userInput = "" // Clear user input
 					} else {
-						if userInput == "QUIT" {
-							return
-						}
+						userInput = "Empty or already proposed!"
 					}
 				} else {
-					userInput = "Empty or already proposed!"
+					if userInput == "QUIT" {
+						return
+					}
 				}
 			} else if ev.Key == termbox.KeyDelete {
 				userInput = "" // Clear user input
@@ -79,6 +79,9 @@ func Draw(data HangManData, game Game) {
 		if HangMan.endGame() {
 			if HangMan.Attempts <= 0 {
 				word = "lose"
+				HangMan.Word = []rune(HangMan.ToFind)
+			} else {
+				word = "win"
 			}
 			gameOver = true
 		}
