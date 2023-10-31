@@ -14,12 +14,17 @@ func (hang *HangManData) meca(input string) bool {
 		if hang.IsThisTheWord(input) {
 			hang.Word = []rune(hang.ToFind)
 			return true
-		} else if input == "STOP" {
-			hang.Save("Ressources/Save/save.txt")
+		} else if input == "STOP" { // If the input is STOP, save the game
+			err := hang.Save("Ressources/Save/save.txt")
+			if err != nil {
+				termbox.Close()
+				fmt.Println("Game save failed :", err)
+				os.Exit(2)
+			}
 			termbox.Close()
 			fmt.Println("Game save in save.txt")
 			os.Exit(0)
-		} else if input == "QUIT" {
+		} else if input == "QUIT" { // If the input is QUIT, quit the game
 			termbox.Close()
 			os.Exit(0)
 		} else {
@@ -27,7 +32,7 @@ func (hang *HangManData) meca(input string) bool {
 			hang.Attempts -= 2
 			hang.HangmanPositions += 2
 			hang.LastFail = true
-			if hang.HangmanPositions > 9 {
+			if hang.HangmanPositions > 9 { // Avoid out of range
 				hang.HangmanPositions = 9
 				hang.Attempts = 0
 			}
