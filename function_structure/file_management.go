@@ -130,5 +130,8 @@ func ReadTheDico(file string) []string {
 			return Dico
 		}
 	}
+	fmt.Println("Unspecified or unrecognized dictionaries (i.e. words chosen at random from all dictionaries)\nPress enter to accept, otherwise ^C")
+	var inputs string
+	fmt.Scanln(&inputs)
 	return readAllDico()
 }
