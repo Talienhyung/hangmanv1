@@ -40,6 +40,7 @@ func (hang *HangManData) display() {
 
 	// Second box inside the main box
 	drawBox(0, 0, 50, 8, termbox.ColorBlue, "Word...")
+	drawBox(25, 0, 25, 8, termbox.ColorBlue, "Attempts")
 
 	// Third box inside the main box
 	drawBox(0, 8, 50, 8, termbox.ColorGreen, "Letter")
