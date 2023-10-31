@@ -75,3 +75,15 @@ func (data *Game) displayAsciiText(words []rune) {
 		fmt.Println("")
 	}
 }
+
+func (data Game) AsciiCounter(attempts int) {
+	switch attempts {
+	case 1:
+		data.displayAscii(35, -1, '1', termbox.ColorLightGray)
+	case 10:
+		data.displayAscii(33, -1, '1', termbox.ColorLightGray)
+		data.displayAscii(36, -1, '0', termbox.ColorLightGray)
+	default:
+		data.displayAscii(34, -1, attempts+'0', termbox.ColorLightGray)
+	}
+}
