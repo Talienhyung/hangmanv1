@@ -23,9 +23,8 @@ func Draw(data HangManData, game Game) {
 		// Clear the screen and set up user interface
 		termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 		game.asciiBox(word)
-		if HangMan.HangmanPositions > 9 {
-			HangMan.HangmanPositions = 9
-		}
+		game.AsciiCounter(HangMan.Attempts)
+
 		HangMan.display()
 
 		// Display text
