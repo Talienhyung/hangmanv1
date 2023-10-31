@@ -42,7 +42,7 @@ EXIT
         exit 0 
             No problem
         exit 2
-            game save failed
+            game save/load failed
         exit 3
             indicated file does not exist
         exit 4
