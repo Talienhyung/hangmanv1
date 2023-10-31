@@ -6,7 +6,7 @@ import "fmt"
 func (game HangManData) ClassicGame() {
 	var inputs string
 	gameOver := false
-	fmt.Println("Good Luck, you have 10 attempts.")
+	fmt.Printf("Good Luck, you have %d attempts.\n", game.Attempts)
 	printRune(game.Word)
 
 	for !gameOver { // Game loop
@@ -14,7 +14,7 @@ func (game HangManData) ClassicGame() {
 		letter := input("\nChoose : ", inputs)
 
 		// Verify input
-		if !game.UsedVerif(letter) && letter != " " {
+		if letter != "" && !game.UsedVerif(letter) {
 			if game.meca(letter) {
 				gameOver = true
 			}
