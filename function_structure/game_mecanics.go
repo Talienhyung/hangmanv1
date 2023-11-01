@@ -13,6 +13,7 @@ func (hang *HangManData) meca(input string) bool {
 	if utf8.RuneCountInString(input) > 1 { // If it's a word
 		if hang.IsThisTheWord(input) {
 			hang.Word = []rune(hang.ToFind)
+			hang.LastFail = false
 			return true
 		} else if input == "STOP" { // If the input is STOP, save the game
 			err := hang.Save("Ressources/Save/save.txt")
