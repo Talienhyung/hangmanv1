@@ -31,9 +31,9 @@ func (data *Game) displayAscii(x, y, version int, borderColor termbox.Attribute)
 func (data *Game) asciiBox(word string) {
 	switch word {
 	case "win": //display WIN if player win
-		data.displayAscii(55+18, 15, 'I', termbox.ColorGreen)
-		data.displayAscii(55, 15, 'W', termbox.ColorGreen)
-		data.displayAscii(55+16+14, 15, 'N', termbox.ColorGreen)
+		data.displayAscii(55+19, 15, 'I', termbox.ColorGreen)
+		data.displayAscii(59, 15, 'W', termbox.ColorGreen)
+		data.displayAscii(55+16+11, 15, 'N', termbox.ColorGreen)
 	case "lose": //display lose if player lose
 		data.displayAscii(56, 15, 'L', termbox.ColorRed)
 		data.displayAscii(55+11, 15, 'O', termbox.ColorRed)
