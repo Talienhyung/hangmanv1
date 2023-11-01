@@ -44,7 +44,7 @@ EXIT
         exit 2
             game save/load failed
         exit 3
-            indicated file does not exist
+            invalid argument
         exit 4
             two arguments not compatible
 
