@@ -1,1 +1,1 @@
-{"Word":[95,97,114,95,95,95],"ToFind":"marche","Attempts":6,"HangmanPositions":3,"ListWord":["bie","zkj"],"ListUsed":[65,82],"LastFail":true}
+{"Word":[95,95,117,115,95,95,95,117,101],"ToFind":"moustique","Attempts":4,"HangmanPositions":5,"ListWord":["words"],"ListUsed":[69,83,85,90,70,71,82],"LastFail":true}
