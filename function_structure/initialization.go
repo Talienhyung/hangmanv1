@@ -8,7 +8,7 @@ func (hangman *HangManData) setData() {
 	hangman.ToFind = ""
 	hangman.Attempts = 10
 	hangman.HangmanPositions = -1
-	hangman.ListUsed = []rune{}
+	hangman.ListLetter = []rune{}
 	hangman.ListWord = []string{}
 }
 

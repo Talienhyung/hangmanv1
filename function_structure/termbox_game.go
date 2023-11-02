@@ -27,7 +27,7 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 		// Display text
 		drawText([]rune(userInput), 2, 10, termbox.ColorDefault, true)
 		drawText(HangMan.Word, 2, 4, termbox.ColorDefault, false)
-		drawText(HangMan.ListUsed, 2, 17, termbox.ColorDefault, false)
+		drawText(HangMan.ListLetter, 2, 17, termbox.ColorDefault, false)
 		for i := range HangMan.ListWord {
 			drawText([]rune(HangMan.ListWord[i]), 2, 18+i, termbox.ColorDefault, false)
 		}
