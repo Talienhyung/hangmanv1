@@ -2,12 +2,9 @@ package hangman
 
 import "github.com/nsf/termbox-go"
 
-// Draw is a function that handles the main game loop for a Hangman game using the termbox library.
+// TermBoxGame is a function that handles the main game loop for a Hangman game using the termbox library.
 // It takes the HangManData and Game structs as input parameters.
-func Draw(data HangManData, game Game) {
-	// Initialize HangManData with the provided data
-	var HangMan HangManData = data
-
+func (HangMan HangManData) TermBoxGame(game Game) {
 	// Initialize the termbox library and handle errors
 	if err := termbox.Init(); err != nil {
 		panic(err)
