@@ -42,7 +42,7 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 				if !gameOver {
 					if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != "Empty or already proposed!" {
 						// Check if the user's input is a valid guess and update the word or game status
-						if HangMan.meca(userInput) {
+						if HangMan.mainMecanics(userInput) {
 							word = "win"
 							gameOver = true
 						} else {

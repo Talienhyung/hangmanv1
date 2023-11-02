@@ -17,7 +17,7 @@ func (game HangManData) AsciiGame(data Game) {
 
 		// Verify input
 		if letter != "" && !game.UsedVerif(letter) {
-			if game.meca(letter) {
+			if game.mainMecanics(letter) {
 				gameOver = true
 			}
 

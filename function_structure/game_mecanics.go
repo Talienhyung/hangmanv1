@@ -9,7 +9,7 @@ import (
 )
 
 // Main mecanic of the game which gathers several functions, return true if the game is finished, otherwise false.
-func (hang *HangManData) meca(input string) bool {
+func (hang *HangManData) mainMecanics(input string) bool {
 	if utf8.RuneCountInString(input) > 1 { // If it's a word
 		if hang.IsThisTheWord(input) {
 			hang.Word = []rune(hang.ToFind)

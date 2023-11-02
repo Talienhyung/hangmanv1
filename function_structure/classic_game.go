@@ -15,7 +15,7 @@ func (game HangManData) ClassicGame() {
 
 		// Verify input
 		if letter != "" && !game.UsedVerif(letter) {
-			if game.meca(letter) {
+			if game.mainMecanics(letter) {
 				gameOver = true
 			}
 

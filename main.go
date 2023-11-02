@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	hangman.ExploitingArgument(hangman.Arg())
+	hangman.ExploitingArgument(hangman.SortArguments())
 }
