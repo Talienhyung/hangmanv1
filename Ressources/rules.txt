@@ -25,3 +25,8 @@ But be careful, every mistake will bring you closer to the hanged man! If you're
 =========
 
 So let the game begin!
+
+
+Note : 
+To quit the game enter QUIT
+To save and exit the game enter STOP
