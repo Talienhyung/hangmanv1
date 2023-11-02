@@ -11,10 +11,11 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 	}
 	defer termbox.Close()
 
-	// Initialize user input and cursor
+	// Initialize variable
 	word := "/"
 	userInput := ""
 	gameOver := false
+	empty := "Empty or already proposed!"
 
 	for {
 		// Clear the screen and set up user interface
@@ -40,7 +41,7 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 				return // Exit the game loop
 			} else if ev.Key == termbox.KeySpace || ev.Key == termbox.KeyEnter {
 				if !gameOver {
-					if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != "Empty or already proposed!" {
+					if userInput != "" && !HangMan.UsedVerif(userInput) && userInput != empty {
 						// Check if the user's input is a valid guess and update the word or game status
 						if HangMan.mainMecanics(userInput) {
 							word = "win"
@@ -50,7 +51,7 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 						}
 						userInput = "" // Clear user input
 					} else {
-						userInput = "Empty or already proposed!"
+						userInput = empty
 					}
 				} else {
 					if userInput == "QUIT" {
@@ -60,11 +61,11 @@ func (HangMan HangManData) TermBoxGame(game Game) {
 			} else if ev.Key == termbox.KeyDelete {
 				userInput = "" // Clear user input
 			} else if ev.Key == termbox.KeyBackspace || ev.Key == termbox.KeyBackspace2 {
-				if userInput != "" && userInput != "Empty or already proposed!" {
+				if userInput != "" && userInput != empty {
 					userInput = userInput[:len(userInput)-1] // Remove the last character from user input
 				}
 			} else {
-				if userInput == "Empty or already proposed!" {
+				if userInput == empty {
 					userInput = ""
 				}
 				userInput += string(ev.Ch) // Add the character to user input
