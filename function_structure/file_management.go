@@ -124,10 +124,10 @@ func ReadTheDico(file string) []string {
 		fmt.Println("No file in Dictionary")
 		os.Exit(3)
 	}
-	for _, j := range listDico {
+	for _, j := range listDico { // Check if the requested dictionary exists
 		if file == j {
-			Dico := readFile("Ressources/Dictionary/" + file)
-			return Dico
+			dico := readFile("Ressources/Dictionary/" + file)
+			return dico
 		}
 	}
 	fmt.Println("Unspecified or unrecognized dictionaries (i.e. words chosen at random from all dictionaries)\nPress enter to accept, otherwise ^C")
