@@ -1,1 +1,1 @@
-{"Word":[95,95,117,115,95,95,95,117,101],"ToFind":"moustique","Attempts":4,"HangmanPositions":5,"ListWord":["words"],"ListUsed":[69,83,85,90,70,71,82],"LastFail":true}
+{"Word":[99,95,95,110,101,101],"ToFind":"cornee","Attempts":1,"HangmanPositions":8,"ListWord":["efeg","ef","zf"],"ListLetter":[78,67,68,65,69],"LastFail":false}
