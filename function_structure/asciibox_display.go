@@ -41,7 +41,11 @@ func (data *Game) asciiBox(word string) {
 		data.displayAscii(55+16+14, 15, 'E', termbox.ColorRed)
 	default: //displays the first rune of the last input
 		runes := []rune(word)
-		data.displayAscii(55+16, 15, int(runes[0]), termbox.ColorLightRed)
+		if int(runes[0]) > 33 && int(runes[0]) < 126 {
+			data.displayAscii(55+16, 15, int(runes[0]), termbox.ColorLightRed)
+		} else {
+			data.displayAscii(55+16, 15, '/', termbox.ColorLightRed)
+		}
 	}
 }
 
